@@ -18,9 +18,20 @@ public class Filter {
 	 * @return converted picture
 	 */
 	public Picture greyScaleFilter() {
-		/*
-			your code here
-		*/
+		Color  color;
+		for (int i = 0; i < this.picture.width() ; i++) {
+			for (int j = 0; j < this.picture.height(); j++) {
+
+				color = this.picture.get(j,i);
+				int blue =color.getBlue();
+				int red = color.getRed();
+				int green = color.getGreen();
+				int mittelwert = (blue + red + green)/3;
+				Color color1 = new Color(mittelwert,mittelwert,mittelwert);
+				this.picture.set(j,i,color1);
+			}
+		}
+
 		return picture;
 	}
 
@@ -31,9 +42,15 @@ public class Filter {
 	 * @return converted picture
 	 */
 	public Picture revertColorFilter() {
-		/*
-			your code here
-		*/
+		Color  color;
+		for (int i = 0; i < this.picture.width() ; i++) {
+			for (int j = 0; j < this.picture.height(); j++) {
+
+				color = this.picture.get(j,i);
+				Color color1 = new Color(255-color.getRed(),255-color.getGreen(),255-color.getBlue());
+				this.picture.set(j,i,color1);
+			}
+		}
 		return picture;
 	}
 
@@ -53,9 +70,22 @@ public class Filter {
 	//@formatter:on
 
 	public Picture sepiaFilter() {
-		/*
-			your code here
-		*/
+		Color  color;
+		for (int i = 0; i < this.picture.width() ; i++) {
+			for (int j = 0; j < this.picture.height(); j++) {
+
+				color = this.picture.get(j,i);
+				int blue =color.getBlue();
+				int red = color.getRed();
+				int green = color.getGreen();
+//				sepia red: (current red * 0.393) + (current green * 0.769) + (current blue * 0.189)
+				double sepiaRed = (red * 0.393)+ (green * 0.769) + (blue * 0.189);
+				double sepiaGreen = (red * 0.349) + (green * 0.686) + (blue * 0.168);
+				double sepiaBlue = (red * 0.292) + (green * 0.534) + (blue * 0.131);
+				Color color1 = new Color((int)Math.min(sepiaRed, 255),(int)Math.min(sepiaGreen, 255),(int)Math.min(sepiaBlue, 255));
+				this.picture.set(j,i,color1);
+			}
+		}
 		return picture;
 	}
 }
